@@ -11,6 +11,7 @@ export class WeatherDayComponent implements OnInit {
   constructor(private weatherService: WeatherDataService) { }
 
   public weather = [];
+  public test;
   ngOnInit(): void {
     this.weatherService.getWeather()
     .subscribe(data => this.weather = data);
