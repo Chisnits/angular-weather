@@ -10,12 +10,17 @@ export class WeatherDayComponent implements OnInit {
 
   constructor(private weatherService: WeatherDataService) { }
 
-  public weather = [];
+  public weather = {};
   public test;
   ngOnInit(): void {
     this.weatherService.getWeather()
-    .subscribe(data => this.weather = data);
+    .then(data => this.weather = data);
     console.log(this.weather);
+  }
+  currentTime() {
+    const date = new Date();
+    const now = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return now;
   }
 
 }

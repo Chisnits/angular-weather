@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
 import { Weather } from './weather';
 
@@ -15,6 +16,16 @@ export class WeatherDataService {
   constructor(private http: HttpClient) { }
 
   getWeather(){
-    return this.http.get<Weather[]>(`${this._url}${this._location}&${this._key}`);
+    const promise = new Promise((resolve, reject) => {
+      return this.http.get(`${this._url}${this._location}&${this._key}`)
+    .toPromise()
+    .then(
+      res => { // Success
+        console.log(res);
+        resolve();
+      }
+    );
+    });
+    return promise;
   }
 }
